@@ -7,3 +7,6 @@ obj/*
 
 # Executables
 *.exe
+
+# Personal db
+my_anime.db
