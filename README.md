@@ -6,6 +6,9 @@ The idea behind MAAAAD is to have an overview of anime that:
 - I have finished watching
 
 
+**THIS IS STILL A WIP**
+
+
 ## Dependencies
 I'm currently using raylib for graphics stuff and sqlite3 for database stuff.  
 
