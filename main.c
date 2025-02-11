@@ -5,10 +5,12 @@
 #include "gui/button.h"
 #include "gui/dropdown.h"
 #include "gui/text.h"
+#include "gui/scrollback.h"
 
 #include "sql/sql.h"
 #include "sql/tables/anime.h"
 #include "sql/tables/genre.h"
+#include "sql/tables/path.h"
 
 
 int main(int argc, char *argv[]){
@@ -23,6 +25,8 @@ int main(int argc, char *argv[]){
     int view_state = 0; // view state
     int add_state = 0; // add state
     char *add_text = NULL; // add string
+
+    int bar_position = 0; // scrollbar position
 
     /// SQL stuff
     int sql_list_counter = 0;
@@ -66,6 +70,19 @@ int main(int argc, char *argv[]){
     }
     sql_printGenre((tableGenre*)genre.table, genre.count);
 
+    // Test reading path table
+    printf("Reading Path table...\n");
+    sqlTable path = {0, NULL};
+    sql_res = sqlite3_exec(db, TABLE_PATH_SELECT, sql_pathCallback, (void*)&path, &sql_errmsg);
+    if (sql_res != SQLITE_OK){
+        sql_errmsg = (char*)sqlite3_errmsg(db);
+        printf("Cannot read table Path: %s\n", sql_errmsg);
+        sqlite3_free(sql_errmsg);
+        sqlite3_close(db);
+        return 1;
+    }
+    sql_printPath((tablePath*)path.table, path.count);
+
     /// Start raylib
     printf("Initializing window...\n");
     gui_init(window.w, window.h, "GUI Test");
@@ -84,6 +101,21 @@ int main(int argc, char *argv[]){
         // Reset GUI variables
         menubar_x = 0; // reset x position for menubar buttons
         component = 0; // reset component id
+
+
+        gui_openLayer();
+        /// TODO: textbox for anime table data
+
+        guiRect scb = {
+            .x = window.w - 2*GUI_SCROLLBAR_WIDTH, // right-side of screen
+            .y = GUI_BUTTON_HEIGHT * 2, // below menubar
+            .w = 0,
+            .h = window.h - GUI_BUTTON_HEIGHT * 3 // height of scrollbar
+        };
+        int pct = gui_scrollbar(scb, &bar_position, gui_getContext()->active_layer, ++component);
+        printf("scrollbar: %d - %d - %d\n", bar_position, pct, anime.count * pct / 100);
+
+        gui_closeLayer();
 
         // Draw Menubar background
         DrawRectangle(0, 0, window.w, GUI_BUTTON_HEIGHT, GUI_BUTTON_BG_COLOR);
