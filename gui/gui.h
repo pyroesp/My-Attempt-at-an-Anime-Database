@@ -25,36 +25,28 @@ typedef struct{
     int active_component;
 }guiContext;
 
-/*
-    Return global GUI context variable
-*/
+/* Return global GUI context variable */
 guiContext* gui_getContext(void);
 
-/*
-    Initialize GUI context and opening raylib window
-*/
+/* Initialize GUI context and opening raylib window */
 void gui_init(int w, int h, char *title);
-/*
-    Close GUI window
-*/
+
+/* Close GUI window */
 void gui_close(void);
 
-/*
-    Open new window layer
-*/
+/* Open new window layer */
 void gui_openLayer(void);
 
-/*
-    Check if layer is active or is GUI_LAYER_ALWAYS_ACTIVE
-*/
+/* Check if layer is active or is GUI_LAYER_ALWAYS_ACTIVE */
 int gui_isLayerActive(int layer);
-/*
-    Check if component is active or component value is reset (GUI_COMPONENT_RESET)
-*/
+
+/* Check if component is active or component value is reset (GUI_COMPONENT_RESET) */
 int gui_isComponentActive(int component);
-/*
-    Close window layer
-*/
+
+/* Check if mouse is inside rectangle */
+int gui_isMouseInside(guiRect r);
+
+/* Close window layer */
 void gui_closeLayer(void);
 
 /*

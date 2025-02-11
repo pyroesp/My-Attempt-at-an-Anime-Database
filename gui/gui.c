@@ -5,9 +5,9 @@ guiContext context;
 
 
 void gui_init(int w, int h, char *title){
+    InitWindow(w, h, title);
     context.active_layer = 0;
     context.active_component = 0;
-    InitWindow(w, h, title);
 }
 
 void gui_close(void){
@@ -37,6 +37,15 @@ int gui_isComponentActive(int component){
 void gui_closeLayer(void){
     if (context.active_layer)
         --context.active_layer;
+}
+
+int gui_isMouseInside(guiRect r){
+    // Get mouse position
+    int mouse_x = GetMouseX();
+    int mouse_y = GetMouseY();
+    if ((mouse_x > r.x && mouse_x < (r.x + r.w)) && (mouse_y > r.y && mouse_y < (r.y + r.h)))
+        return 1;
+    return 0;
 }
 
 
