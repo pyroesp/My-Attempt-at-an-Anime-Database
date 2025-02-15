@@ -1,11 +1,7 @@
 #include "scrollback.h"
 
-#include "gui.h"
-
-#include <stdio.h>
-
 int gui_scrollbar(guiRect r, int *bar_y, int layer, int id){
-    int percent = 0;
+    int return_value = 0;
     // set line position
     guiRect line = {
         .x = r.x + GUI_SCROLLBAR_WIDTH/2,
@@ -56,8 +52,8 @@ int gui_scrollbar(guiRect r, int *bar_y, int layer, int id){
         // Draw rectangle
         DrawRectangle(bar.x, bar.y, bar.w, bar.h, GUI_SCROLLBAR_BAR_COLOR);
     }
-    // calc percent value to return
-    percent = ((*bar_y) * 100) / bar_travel;
-    return percent;
+    // calc value to return
+    return_value = ((*bar_y) * GUI_SCROLLBAR_MAX_VALUE) / bar_travel;
+    return return_value;
 }
 
