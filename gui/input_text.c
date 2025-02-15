@@ -1,28 +1,27 @@
-#include "text.h"
+#include "input_text.h"
 
 #include <stdlib.h>
 #include <string.h>
 
 
-guiText text;
+guiInputText text;
 
 
-void gui_initText(void){
+void gui_initInputText(void){
     text.buffer = NULL;
     text.position = 0;
     text.size = 0;
-
     text.finished = 0;
 }
 
-void gui_freeText(void){
+void gui_freeInputText(void){
     if (text.buffer){
         free(text.buffer);
-        gui_initText();
+        gui_initInputText();
     }
 }
 
-char* gui_getText(void){
+char* gui_getInputText(void){
     char *s;
     if (text.finished){
         s = (char*)calloc(strlen(text.buffer)+1, sizeof(char));
@@ -36,13 +35,13 @@ int gui_inputText(guiRect r, int layer, int id){
     if (gui_isLayerActive(layer)){
         if (!text.finished){
             gui_getContext()->active_component = id;
-            int font_size = r.h - GUI_TEXT_Y_OFFSET*2;
+            int font_size = r.h - GUI_INPUT_TEXT_Y_OFFSET*2;
             if (text.size == 0){
-                text.buffer = (char*)calloc(GUI_TEXT_SIZE_DEFAULT, sizeof(char));
-                text.size = GUI_TEXT_SIZE_DEFAULT;
+                text.buffer = (char*)calloc(GUI_INPUT_TEXT_SIZE_DEFAULT, sizeof(char));
+                text.size = GUI_INPUT_TEXT_SIZE_DEFAULT;
             }
             /// Draw Text BgColor
-            DrawRectangle(r.x, r.y, r.w, r.h, GUI_TEXT_BG_COLOR);
+            DrawRectangle(r.x, r.y, r.w, r.h, GUI_INPUT_TEXT_BG_COLOR);
 
             // Add '|' as cursor at the end of the string
             if (text.position < text.size){
@@ -81,7 +80,7 @@ int gui_inputText(guiRect r, int layer, int id){
             }
 
             /// Draw Text
-            DrawText(text.buffer, r.x + GUI_TEXT_X_OFFSET, r.y + GUI_TEXT_Y_OFFSET, font_size, GUI_TEXT_COLOR);
+            DrawText(text.buffer, r.x + GUI_INPUT_TEXT_X_OFFSET, r.y + GUI_INPUT_TEXT_Y_OFFSET, font_size, GUI_INPUT_TEXT_COLOR);
         }
     }
     return text.finished;

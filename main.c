@@ -4,7 +4,7 @@
 #include "gui/gui.h"
 #include "gui/button.h"
 #include "gui/dropdown.h"
-#include "gui/text.h"
+#include "gui/input_text.h"
 #include "gui/scrollback.h"
 
 #include "sql/sql.h"
@@ -220,7 +220,7 @@ int main(int argc, char *argv[]){
             case 1: // Initialize text input on new layer
                 add_state = 2;
                 gui_openLayer();
-                gui_initText();
+                gui_initInputText();
                 if (add_text){
                     free(add_text);
                     add_text = NULL;
@@ -228,13 +228,13 @@ int main(int argc, char *argv[]){
                 break;
             case 2: // Input text
                 if (gui_inputText((guiRect){0, 300, window.w, GUI_BUTTON_HEIGHT}, 1, ++component)){
-                    add_text = gui_getText();
+                    add_text = gui_getInputText();
                     add_state = 3;
                 }
                 break;
             case 3: // Cleanup text input and close layer
                 add_state = 0;
-                gui_freeText();
+                gui_freeInputText();
                 gui_closeLayer();
                 break;
             case 0:

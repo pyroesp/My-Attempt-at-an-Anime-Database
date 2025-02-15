@@ -48,7 +48,6 @@ int gui_isMouseInside(guiRect r){
     return 0;
 }
 
-
 void gui_windowResize(guiRect *window){
     int window_resized = 0;
     guiRect new_window;
