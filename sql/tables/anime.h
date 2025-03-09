@@ -1,6 +1,8 @@
 #ifndef _TABLE_ANIME_H
 #define _TABLE_ANIME_H
 
+#define TABLE_ANIME_COL_SIZE 6
+
 // Query to get Anime table data
 #define TABLE_ANIME_SELECT "SELECT * FROM anime ORDER BY name;"
 
@@ -19,9 +21,9 @@ typedef struct{
     int id;
     char *name;
     char *genre;
-    int episodes;
-    int watched;
-    int finished;
+    char *episodes;
+    char *watched;
+    char *finished;
 }tableAnime;
 
 /* For Debug: print genre struct */

@@ -38,29 +38,29 @@ int sql_animeCallback(void *sql_table, int argc, char *argv[], char *col_name[])
             switch(i){
                 case ANIME_GENRE:
                 case ANIME_NAME:
+                case ANIME_EPISODES:
+                case ANIME_WATCHED:
+                case ANIME_FINISHED:
                     if (argv[i] != NULL)
                         ct = strdup(argv[i]);
                     break;
                 case ANIME_ID:
                     it = &a->id;
                     break;
-                case ANIME_EPISODES:
-                    it = &a->episodes;
-                    break;
-                case ANIME_WATCHED:
-                    it = &a->watched;
-                    break;
-                case ANIME_FINISHED:
-                    it = &a->finished;
-                    break;
             }
 
             switch(i){
                 case ANIME_ID:
-                case ANIME_EPISODES:
-                case ANIME_WATCHED:
-                case ANIME_FINISHED:
                     (*it) = atoi(argv[i]);
+                    break;
+                case ANIME_EPISODES:
+                    a->episodes = ct;
+                    break;
+                case ANIME_WATCHED:
+                    a->watched = ct;
+                    break;
+                case ANIME_FINISHED:
+                    a->finished = ct;
                     break;
                 case ANIME_NAME:
                     a->name = ct;
@@ -82,6 +82,12 @@ void sql_freeTableAnime(tableAnime *a, int count){
                 free(a[i].name);
             if (a[i].genre)
                 free(a[i].genre);
+            if (a[i].episodes)
+                free(a[i].episodes);
+            if (a[i].watched)
+                free(a[i].watched);
+            if (a[i].finished)
+                free(a[i].finished);
         }
         free(a);
     }
