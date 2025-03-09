@@ -4,10 +4,11 @@
 #include <raylib.h>
 
 // Minimum GUI window size
-#define GUI_WINDOW_WIDTH 1280
-#define GUI_WINDOW_HEIGHT 720
+#define GUI_WINDOW_WIDTH 1920
+#define GUI_WINDOW_HEIGHT 1080
 
 #define GUI_WINDOW_BG_COLOR (Color){0,0,0,0xFF}
+//#define GUI_WINDOW_BG_COLOR DARKGRAY
 
 // Set a GUI component to always be active (UNTESTED)
 #define GUI_LAYER_ALWAYS_ACTIVE -1
